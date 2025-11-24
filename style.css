@@ -197,6 +197,22 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+/* Chat links for citations */
+.chat-link {
+  color: #0066cc;
+  text-decoration: underline;
+  word-break: break-word;
+  transition: color 0.2s ease;
+}
+
+.chat-link:hover {
+  color: #004499;
+}
+
+.chat-link:visited {
+  color: #551a8b;
+}
+
 /* Animated thinking bubbles */
 .typing-indicator {
   display: flex;

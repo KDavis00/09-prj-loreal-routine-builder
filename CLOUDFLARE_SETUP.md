@@ -52,7 +52,7 @@ async function handleRequest(request) {
     // Get the request body from your frontend
     const body = await request.json();
 
-    // Make request to OpenAI API
+    // Make request to OpenAI API with web search enabled
     const openaiResponse = await fetch(
       "https://api.openai.com/v1/chat/completions",
       {
@@ -65,7 +65,13 @@ async function handleRequest(request) {
           model: "gpt-4o",
           messages: body.messages,
           temperature: 0.7,
-          max_tokens: 1000,
+          max_tokens: 1500,
+          // Enable web search with the prediction tool
+          tools: [
+            {
+              type: "web_search_preview",
+            },
+          ],
         }),
       }
     );

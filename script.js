@@ -31,7 +31,7 @@ let conversationHistory = [
   {
     role: "system",
     content:
-      "You are a knowledgeable beauty and skincare advisor specializing in L'Oréal brand products. You help users create personalized beauty routines and answer questions about skincare, haircare, makeup, and fragrance. Provide clear, specific advice about product usage, application order, and timing (morning/evening). Be friendly, professional, and helpful. Keep responses concise but informative.",
+      "You are a knowledgeable beauty and skincare advisor specializing in L'Oréal brand products. You help users create personalized beauty routines and answer questions about skincare, haircare, makeup, and fragrance. When discussing L'Oréal products or beauty trends, use web search to find current information, product availability, reviews, and the latest innovations. Always include citations and links when you reference current information. Provide clear, specific advice about product usage, application order, and timing (morning/evening). Be friendly, professional, and helpful. Keep responses concise but informative.",
   },
 ];
 let allProducts = [];
@@ -263,8 +263,14 @@ function addMessageToChat(message, sender) {
   const messageDiv = document.createElement("div");
   messageDiv.className = `chat-message ${sender}`;
 
-  /* Format the message text to preserve line breaks and formatting */
-  const formattedMessage = message.replace(/\n/g, "<br>");
+  /* Format the message text to preserve line breaks and make links clickable */
+  let formattedMessage = message.replace(/\n/g, "<br>");
+
+  /* Convert URLs to clickable links */
+  formattedMessage = formattedMessage.replace(
+    /(https?:\/\/[^\s<]+)/g,
+    '<a href="$1" target="_blank" rel="noopener noreferrer" class="chat-link">$1</a>'
+  );
 
   messageDiv.innerHTML = `
     <div class="message-content">
